@@ -4,8 +4,8 @@
 * Plugin URI: #
 * Description: Custom hooks and functions
 * Version: 1.0
-* Author: Blaze
-* Author URI: #
+* Author: Blaze Online
+* Author URI: https://blaze.online/
 * License: GPLv2+
 */
 
