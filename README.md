@@ -2,7 +2,7 @@
 Will manage hosting features
 
 # Version
-`~Current Version:1.1~`
+`~Current Version:1.0.1~`
 
 ## Changelog
 
