@@ -2,8 +2,8 @@
 /**
 * Plugin Name: Blaze Online Hosting
 * Plugin URI: #
-* Description: Custom hooks and functions
-* Version: 1.0
+* Description: Manage site hosting feature
+* Version: 1.0.1
 * Author: Blaze Online
 * Author URI: https://blaze.online/
 * License: GPLv2+
@@ -114,6 +114,10 @@ class BlazeHooks
 	public function blz_settings()
 	{
 		register_setting( 'blz-settings-group', 'cartfragment' );
+
+		if ( class_exists( 'wpMandrill' ) ) {
+			remove_action( 'wp_dashboard_setup', array( 'wpMandrill' , 'addDashboardWidgets' ) );
+		}
 	}
 
 	public function blz_fragments()
@@ -162,6 +166,7 @@ class BlazeHooks
 
 	public function blz_run_enable_disable_options($args, $assoc_args)
 	{
+		// Run option commands
 		if(!empty($args[0]) && $args[0] == 'set-option') {
 			// Enable/Disable Cart Fragments
 			// Command: wp blaze-admin set-option --cart-fragment=true/false
@@ -178,6 +183,33 @@ class BlazeHooks
 					WP_CLI::error( "Wrong command please try again!" );
 				}
 			}
+		}
+
+		// Run plugin updater
+		if(!empty($args[0]) && $args[0] == 'update-plugin') {
+			// Command: wp blaze-admin update-plugin
+
+			include_once BLAZE_DIR .'library/updater.php';
+			define( 'WP_GITHUB_FORCE_UPDATE', true );
+
+			$config = array(
+				'slug' => plugin_basename( __FILE__ ),
+				'proper_folder_name' => 'blaze-online-hosting',
+				'api_url' => 'https://api.github.com/melberthbontilao/Blaze-Online-Hosting',
+				'raw_url' => 'https://raw.github.com/melberthbontilao/Blaze-Online-Hosting/master',
+				'github_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting',
+				'zip_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting/archive/master.zip',
+				'sslverify' => true,
+				'requires' => '3.0',
+				'tested' => '3.3',
+				'readme' => 'README.md',
+				'access_token' => 'f1069fa8684afc6660b700f2187db853af35651f',
+			);
+
+			new WP_GitHub_Updater( $config );
+
+			WP_CLI::success( "Plugin is now updated to latest version" );
+
 		}
 	}
 }
