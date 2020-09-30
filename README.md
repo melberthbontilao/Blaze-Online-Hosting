@@ -1,10 +1,13 @@
 # Blaze-Online-Hosting
 Will manage hosting features
 
-# Version
-`~Current Version:1.0.2~`
-
 ## Changelog
+
+### 1.0.4
+* Change plugin description
+
+### 1.0.3
+* Add plugin url
 
 ### 1.0.2
 * Modify updater feature
