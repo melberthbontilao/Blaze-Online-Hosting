@@ -3,6 +3,9 @@ Will manage hosting features
 
 ## Changelog
 
+### 1.0.5
+* Modify plugin updater
+
 ### 1.0.4
 * Change plugin description
 

@@ -3,7 +3,7 @@
 * Plugin Name: Blaze Online Hosting
 * Plugin URI: https://blaze.online/
 * Description: Manage site hosting feature in your site
-* Version: 1.0.4
+* Version: 1.0.5
 * Author: Blaze Online
 * Author URI: https://blaze.online/
 * License: GPLv2+
@@ -189,27 +189,74 @@ class BlazeHooks
 		if(!empty($args[0]) && $args[0] == 'update-plugin') {
 			// Command: wp blaze-admin update-plugin
 
-			include_once BLAZE_DIR .'library/updater.php';
-			define( 'WP_GITHUB_FORCE_UPDATE', true );
+			// include_once BLAZE_DIR .'library/updater.php';
+			// define( 'WP_GITHUB_FORCE_UPDATE', true );
 
-			$config = array(
-				'slug' => plugin_basename( __FILE__ ),
-				'proper_folder_name' => 'blaze-online-hosting',
-				'api_url' => 'https://api.github.com/melberthbontilao/Blaze-Online-Hosting',
-				'raw_url' => 'https://raw.github.com/melberthbontilao/Blaze-Online-Hosting/master',
-				'github_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting',
-				'zip_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting/archive/master.zip',
-				'sslverify' => true,
-				'requires' => '3.0',
-				'tested' => '3.3',
-				'readme' => 'README.md',
-				'access_token' => 'f1069fa8684afc6660b700f2187db853af35651f',
-			);
+			// $config = array(
+			// 	'slug' => plugin_basename( __FILE__ ),
+			// 	'proper_folder_name' => 'blaze-online-hosting',
+			// 	'api_url' => 'https://api.github.com/repos/melberthbontilao/Blaze-Online-Hosting',
+			// 	'raw_url' => 'https://raw.githubusercontent.com/melberthbontilao/Blaze-Online-Hosting/master',
+			// 	'github_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting',
+			// 	'zip_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting/archive/master.zip',
+			// 	'sslverify' => true,
+			// 	'requires' => '3.0',
+			// 	'tested' => '3.3',
+			// 	'readme' => 'README.md',
+			// 	'access_token' => '',
+			// );
 
-			new WP_GitHub_Updater( $config );
+			// $res = new WP_GitHub_Updater( $config );
 
-			// WP_CLI::success( "Plugin is now updated to latest version" );
+			$this->downloadunzip();
+
+			// print_r($res);
+
+			WP_CLI::success( "Plugin is now updated to latest version" );
 
 		}
+	}
+
+	public function downloadunzip()
+	{
+		$download_url = "https://github.com/melberthbontilao/Blaze-Online-Hosting/archive/master.zip";
+		
+		$srcfilepath = BLAZE_DIR ."file";
+		$srcfile = $srcfilepath ."/file.zip";
+		mkdir($srcfilepath, 0777);
+		fopen($srcfile, "w");
+
+		$file = $srcfile;
+		$script = basename($_SERVER['PHP_SELF']);
+
+		file_put_contents($file, fopen($download_url, 'r'));
+
+		$path = pathinfo(realpath($file), PATHINFO_DIRNAME);
+
+		$zip = new ZipArchive;
+		$res = $zip->open($file);
+
+		if ($res === TRUE) {
+		  $zip->extractTo($path);
+		  $zip->close();
+
+		  echo "<strong>$file</strong> extracted to <strong>$path</strong><br>";
+		  if ($delete == "yes") { unlink($file); } else { echo "remember to delete <strong>$file</strong> & <strong>$script</strong>!"; }
+
+		} else {
+		  echo "Couldn't open $file";
+		}
+
+		$dir = $srcfilepath .'/Blaze-Online-Hosting-master';
+	    $dirNew = BLAZE_DIR;
+
+	    if (is_dir($dir)) {
+	        if ($dh = opendir($dir)) {
+	            while (($file = readdir($dh)) !== false) {
+		           rename($dir.'/'.$file,$dirNew.'/'.$file)
+	            }
+	            closedir($dh);
+	        }
+	    }
 	}
 }
