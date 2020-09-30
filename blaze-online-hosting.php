@@ -188,30 +188,7 @@ class BlazeHooks
 		// Run plugin updater
 		if(!empty($args[0]) && $args[0] == 'update-plugin') {
 			// Command: wp blaze-admin update-plugin
-
-			// include_once BLAZE_DIR .'library/updater.php';
-			// define( 'WP_GITHUB_FORCE_UPDATE', true );
-
-			// $config = array(
-			// 	'slug' => plugin_basename( __FILE__ ),
-			// 	'proper_folder_name' => 'blaze-online-hosting',
-			// 	'api_url' => 'https://api.github.com/repos/melberthbontilao/Blaze-Online-Hosting',
-			// 	'raw_url' => 'https://raw.githubusercontent.com/melberthbontilao/Blaze-Online-Hosting/master',
-			// 	'github_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting',
-			// 	'zip_url' => 'https://github.com/melberthbontilao/Blaze-Online-Hosting/archive/master.zip',
-			// 	'sslverify' => true,
-			// 	'requires' => '3.0',
-			// 	'tested' => '3.3',
-			// 	'readme' => 'README.md',
-			// 	'access_token' => '',
-			// );
-
-			// $res = new WP_GitHub_Updater( $config );
-
 			$this->downloadunzip();
-
-			// print_r($res);
-
 			WP_CLI::success( "Plugin is now updated to latest version" );
 
 		}
@@ -239,12 +216,6 @@ class BlazeHooks
 		if ($res === TRUE) {
 		  $zip->extractTo($path);
 		  $zip->close();
-
-		  echo "<strong>$file</strong> extracted to <strong>$path</strong><br>";
-		  if ($delete == "yes") { unlink($file); } else { echo "remember to delete <strong>$file</strong> & <strong>$script</strong>!"; }
-
-		} else {
-		  echo "Couldn't open $file";
 		}
 
 		$dir = $srcfilepath .'/Blaze-Online-Hosting-master';
