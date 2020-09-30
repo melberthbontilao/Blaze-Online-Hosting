@@ -1,7 +1,7 @@
 <?php
 /**
 * Plugin Name: Blaze Online Hosting
-* Plugin URI: #
+* Plugin URI: https://blaze.online/
 * Description: Manage site hosting feature
 * Version: 1.0.2
 * Author: Blaze Online
