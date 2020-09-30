@@ -2,9 +2,12 @@
 Will manage hosting features
 
 # Version
-`~Current Version:1.0.1~`
+`~Current Version:1.0.2~`
 
 ## Changelog
+
+### 1.0.2
+* Modify updater feature
 
 ### 1.0.1
 * Add readme file and updater feature

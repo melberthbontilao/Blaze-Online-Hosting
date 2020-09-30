@@ -3,7 +3,7 @@
 * Plugin Name: Blaze Online Hosting
 * Plugin URI: #
 * Description: Manage site hosting feature
-* Version: 1.0.1
+* Version: 1.0.2
 * Author: Blaze Online
 * Author URI: https://blaze.online/
 * License: GPLv2+
@@ -208,7 +208,7 @@ class BlazeHooks
 
 			new WP_GitHub_Updater( $config );
 
-			WP_CLI::success( "Plugin is now updated to latest version" );
+			// WP_CLI::success( "Plugin is now updated to latest version" );
 
 		}
 	}
