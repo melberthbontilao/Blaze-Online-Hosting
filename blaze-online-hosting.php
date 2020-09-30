@@ -3,7 +3,7 @@
 * Plugin Name: Blaze Online Hosting
 * Plugin URI: https://blaze.online/
 * Description: Manage site hosting feature in your site
-* Version: 1.0.5
+* Version: 1.0.6
 * Author: Blaze Online
 * Author URI: https://blaze.online/
 * License: GPLv2+
